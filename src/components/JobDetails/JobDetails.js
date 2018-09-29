@@ -1,9 +1,6 @@
 import React, { Component } from "react"
 
 class JobDetails extends Component {
-  componentDidMount() {
-    console.log(this.props)
-  }
   render() {
     let selectedJob = <p>Please Select a Job</p>
     if (this.props.job) {

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import axios from "axios"
+import jsonpAdapter from "axios-jsonp"
 // import { Route } from "react-router-dom"
 
 import "./JobSearchEngine.css"
@@ -32,11 +33,13 @@ class JobSearchEngine extends Component {
   }
 
   onClickSearchHandler = () => {
-    const { location, term, fullTime } = this.state
-    const params = `description=${term}&location=${location}&full_time=${fullTime}`
+    const { location, term, isFullTime } = this.state
+    const url = `https://jobs.github.com/positions.json?description=${term}&location=${location}&full_time=${isFullTime}`
 
-    axios
-      .get(params)
+    axios({
+      url: url,
+      adapter: jsonpAdapter,
+    })
       .then(response => {
         const jobs = response.data
         this.setState({ jobs: jobs, jobsCount: jobs.length })
