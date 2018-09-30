@@ -36,22 +36,24 @@ const reducer = (state = initialState, action) => {
       const { location, term, isFullTime } = action.searchData
       const url = `https://jobs.github.com/positions.json?description=${term}&location=${location}&full_time=${isFullTime}`
 
-      axios({
-        url: url,
-        adapter: jsonpAdapter,
-      })
-        .then(response => {
-          const jobs = response.data
-          console.log(jobs)
-          return {
-            ...state,
-            jobs,
-            jobsCount: jobs.length,
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      console.log(url)
+
+    //   axios({
+    //     url: url,
+    //     adapter: jsonpAdapter,
+    //   })
+    //     .then(response => {
+    //       const jobs = response.data
+    //       console.log(jobs)
+    //       return {
+    //         ...state,
+    //         jobs,
+    //         jobsCount: jobs.length,
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log(error)
+    //     })
   }
   return state
 }
