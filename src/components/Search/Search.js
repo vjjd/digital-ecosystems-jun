@@ -10,21 +10,23 @@ class Search extends Component {
         <div className="Search">
           <input
             type="text"
-            onChange={event => this.props.onChangeTerm(event)}
+            onChange={this.props.onChangeTerm}
             placeholder="Term"
           />
           <input
             type="text"
-            onChange={event => this.props.onChangeLocation(event)}
+            onChange={this.props.onChangeLocation}
             placeholder="Location"
           />
-          <span>Full Time</span>
-          <input
-            type="checkbox"
-            onChange={event => this.props.onChangeFulltime(event)}
-            value={this.props.fullTime}
-          />
-          <button onClick={this.props.onClickSearch}>Search</button>
+          <span>
+            Full Time
+            <input
+              type="checkbox"
+              onChange={this.props.onChangeFulltime}
+              value={this.props.fullTime}
+            />
+            <button onClick={this.props.onClickSearch}>Search</button>
+          </span>
         </div>
       </Aux>
     )
