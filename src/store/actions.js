@@ -1,0 +1,5 @@
+export const CHANGE_TERM = "CHANGE_TERM"
+export const CHANGE_LOCATION = "CHANGE_LOCATION"
+export const SELECT_JOB = "SELECT_JOB"
+export const CLICK_SEARCH = "CLICK_SEARCH"
+export const TOGGLE_FULLTIME = "TOGGLE_FULLTIME"

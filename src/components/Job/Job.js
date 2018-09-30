@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 
 import Aux from "../../hoc/Aux"
 import "./Job.css"
@@ -12,7 +13,6 @@ class Job extends Component {
             <p>Title: {this.props.title}</p>
             <p>Location: {this.props.location}</p>
             <p>Company: {this.props.company}</p>
-            <p>ID: {this.props.id}</p>
           </div>
         </div>
       </Aux>
@@ -20,4 +20,12 @@ class Job extends Component {
   }
 }
 
-export default Job
+const mapStateToProps = state => {
+  return {
+    title: state.title,
+    location: state.location,
+    company: state.company,
+  }
+}
+
+export default connect(mapStateToProps)(Job)

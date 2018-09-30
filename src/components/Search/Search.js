@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 
 import Aux from "../../hoc/Aux"
 import "./Search.css"
@@ -33,4 +34,10 @@ class Search extends Component {
   }
 }
 
-export default Search
+function mapStateToProps(state) {
+  return {
+    fullTime: state.fullTime,
+  }
+}
+
+export default connect(mapStateToProps)(Search)

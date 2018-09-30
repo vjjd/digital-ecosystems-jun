@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
+
 const HtmlToReactParser = require("html-to-react").Parser
 
 import "./JobDetails.css"
@@ -21,4 +23,10 @@ class JobDetails extends Component {
   }
 }
 
-export default JobDetails
+function mapStateToProps(state) {
+  return {
+    job: state.job,
+  }
+}
+
+export default connect(mapStateToProps)(JobDetails)

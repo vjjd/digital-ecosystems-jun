@@ -1,76 +1,36 @@
 import React, { Component } from "react"
-import { BrowserRouter } from "react-router-dom"
-import axios from "axios"
-import jsonpAdapter from "axios-jsonp"
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import { connect } from "react-redux"
 
 import "./App.css"
 import { Job, JobDetails, Search } from "./components"
+import * as actionTypes from "./store/actions"
 
 class App extends Component {
-  state = {
-    msg: "It's the Digital Ecosystems App",
-    jobs: [],
-    term: "",
-    location: "",
-    isFullTime: false,
-    jobsCount: 0,
-    selectedJob: null,
-  }
-
-  onChangeTermHandler = event => {
-    this.setState({ term: event.target.value })
-  }
-
-  onChangeLocationHandler = event => {
-    this.setState({ location: event.target.value })
-  }
-
-  toggleFulltime = () => {
-    const { isFullTime } = this.state
-    this.setState({ isFullTime: !isFullTime })
-  }
-
-  onClickSearchHandler = () => {
-    const { location = "", term = "", isFullTime } = this.state
-    const url = `https://jobs.github.com/positions.json?description=${term}&location=${location}&full_time=${isFullTime}`
-
-    axios({
-      url: url,
-      adapter: jsonpAdapter,
-    })
-      .then(response => {
-        const jobs = response.data
-        this.setState({ jobs, jobsCount: jobs.length })
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-
-  jobSelectedHandler = job => {
-    this.setState({ selectedJob: job })
-  }
-
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         <div className="App">
-          <h1>{this.state.msg}</h1>
+          <h1>{this.props.msg}</h1>
 
           <Search
-            term={this.state.term}
-            location={this.state.location}
-            onChangeTerm={this.onChangeTermHandler}
-            onChangeLocation={this.onChangeLocationHandler}
-            onClickSearch={this.onClickSearchHandler}
-            onChangeFulltime={this.toggleFulltime}
+            term={this.props.term}
+            location={this.props.location}
+            onChangeTerm={this.props.onChangeTermHandler}
+            onChangeLocation={this.props.onChangeLocationHandler}
+            onClickSearch={() =>
+              this.props.onClickSearchHandler(
+                this.props.location,
+                this.props.term,
+                this.props.isFullTime
+              )
+            }
+            onChangeFulltime={this.props.toggleFulltime}
           />
 
-          <p>Jobs Count: {this.state.jobsCount}</p>
-
-          <JobDetails job={this.state.selectedJob} />
-
-          {this.state.jobs.map(job => {
+          <p>Jobs Count: {this.props.jobsCount}</p>
+          {this.props.jobs.map(job => {
+            console.log("ya tut")
             return (
               <Job
                 title={job.title}
@@ -78,14 +38,46 @@ class App extends Component {
                 location={job.location}
                 id={job.id}
                 key={job.id}
-                onClick={() => this.jobSelectedHandler(job)}
+                onClick={() => this.props.jobSelectedHandler(job)}
               />
             )
           })}
+          <JobDetails job={this.props.selectedJob} />
         </div>
-      </BrowserRouter>
+      </Router>
     )
   }
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    msg: state.msg,
+    selectedJob: state.selectedJob,
+    jobs: state.jobs,
+    term: state.term,
+    location: state.location,
+    isFullTime: state.isFullTime,
+    jobsCount: state.jobsCount,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangeTermHandler: event =>
+      dispatch({ type: actionTypes.CHANGE_TERM, event }),
+    onChangeLocationHandler: event =>
+      dispatch({ type: actionTypes.CHANGE_LOCATION, event }),
+    jobSelectedHandler: job => dispatch({ type: actionTypes.SELECT_JOB, job }),
+    onClickSearchHandler: (location, term, isFullTime) =>
+      dispatch({
+        type: actionTypes.CLICK_SEARCH,
+        searchData: { location, term, isFullTime },
+      }),
+    toggleFulltime: () => dispatch({ type: actionTypes.TOGGLE_FULLTIME }),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
