@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import "./App.css"
 import { Job, JobDetails, Search } from "./components"
 import * as actionTypes from "./store/actions"
+import { clickSearch } from "./store/actions"
 
 class App extends Component {
   render() {
@@ -64,15 +65,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onChangeTermHandler: event =>
-      dispatch({ type: actionTypes.CHANGE_TERM, event }),
+      dispatch({ type: actionTypes.CHANGE_TERM, input: event.target.value }),
     onChangeLocationHandler: event =>
-      dispatch({ type: actionTypes.CHANGE_LOCATION, event }),
+      dispatch({
+        type: actionTypes.CHANGE_LOCATION,
+        input: event.target.value,
+      }),
     jobSelectedHandler: job => dispatch({ type: actionTypes.SELECT_JOB, job }),
     onClickSearchHandler: (location, term, isFullTime) =>
-      dispatch({
-        type: actionTypes.CLICK_SEARCH,
-        searchData: { location, term, isFullTime },
-      }),
+      dispatch(clickSearch({ location, term, isFullTime })),
     toggleFulltime: () => dispatch({ type: actionTypes.TOGGLE_FULLTIME }),
   }
 }
