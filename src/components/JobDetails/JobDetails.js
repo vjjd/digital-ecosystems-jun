@@ -1,13 +1,15 @@
 import React, { Component } from "react"
 
+import "./JobDetails.css"
+
 class JobDetails extends Component {
   render() {
     let selectedJob = <p>Please Select a Job</p>
     if (this.props.job) {
       selectedJob = (
         <div>
-          <p>Description: {this.props.job.description}</p>
-          <p>Company logo url: {this.props.job.company_logo}</p>
+          <p>{this.props.job.description}</p>
+          <img src={this.props.job.company_logo} />
         </div>
       )
     }
