@@ -1,14 +1,16 @@
 import React, { Component } from "react"
+const HtmlToReactParser = require("html-to-react").Parser
 
 import "./JobDetails.css"
 
 class JobDetails extends Component {
   render() {
+    const htmlToReactParser = new HtmlToReactParser()
     return (
       <div className="JobDetails">
         {this.props.job ? (
           <div>
-            <p>{this.props.job.description}</p>
+            {htmlToReactParser.parse(this.props.job.description)}
             <img src={this.props.job.company_logo} />
           </div>
         ) : (
