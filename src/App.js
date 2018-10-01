@@ -3,28 +3,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import { connect } from "react-redux"
 
 import "./App.css"
-import { Job, JobDetails, Search } from "./components"
+import { JobDetails, Search, Jobs } from "./components"
 import * as actionTypes from "./store/actions"
 import { clickSearch } from "./store/actions"
 
 class App extends Component {
-  handleScroll() {
-    const windowBottom =
-      "innerHeight" in window
-        ? window.innerHeight + window.pageYOffset
-        : document.documentElement.offsetHeight + window.pageYOffset
-
-    if (windowBottom >= document.body.scrollHeight) {
-      console.log("bottom reached")
-    }
-  }
-
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll)
-  }
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll)
-  }
   render() {
     return (
       <Router>
@@ -36,8 +19,6 @@ class App extends Component {
               <div>
                 <h1>{this.props.msg}</h1>
                 <Search
-                  term={this.props.term}
-                  location={this.props.location}
                   onChangeTerm={this.props.onChangeTermHandler}
                   onChangeLocation={this.props.onChangeLocationHandler}
                   onClickSearch={() =>
@@ -49,23 +30,7 @@ class App extends Component {
                   }
                   onChangeFulltime={this.props.toggleFulltimeHandler}
                 />
-
-                {this.props.jobs.length ? (
-                  this.props.jobs.map(job => {
-                    return (
-                      <Job
-                        title={job.title}
-                        company={job.company}
-                        location={job.location}
-                        id={job.id}
-                        key={job.id}
-                        onClick={() => this.props.jobSelectedHandler(job)}
-                      />
-                    )
-                  })
-                ) : (
-                  <p>Jobs list is empty</p>
-                )}
+                <Jobs />
               </div>
             )}
           />
