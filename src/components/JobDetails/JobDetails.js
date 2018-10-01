@@ -7,6 +7,9 @@ const HtmlToReactParser = require("html-to-react").Parser
 import "./JobDetails.css"
 
 class JobDetails extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
   render() {
     const htmlToReactParser = new HtmlToReactParser()
     return (

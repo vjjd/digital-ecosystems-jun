@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import Aux from "../../hoc/Aux"
 import Job from "../Job/Job"
 import * as actionTypes from "../../store/actions"
 
@@ -26,26 +25,24 @@ class Jobs extends Component {
 
   render() {
     return (
-      <Aux>
-        <div className="Jobs">
-          {this.props.jobs.length ? (
-            this.props.jobs.map(job => {
-              return (
-                <Job
-                  title={job.title}
-                  company={job.company}
-                  location={job.location}
-                  id={job.id}
-                  key={job.id}
-                  onClick={() => this.props.jobSelectedHandler(job)}
-                />
-              )
-            })
-          ) : (
-            <p>Jobs list is empty</p>
-          )}
-        </div>
-      </Aux>
+      <div className="Jobs">
+        {this.props.jobs.length ? (
+          this.props.jobs.map(job => {
+            return (
+              <Job
+                title={job.title}
+                company={job.company}
+                location={job.location}
+                id={job.id}
+                key={job.id}
+                onClick={() => this.props.jobSelectedHandler(job)}
+              />
+            )
+          })
+        ) : (
+          <p>Jobs list is empty</p>
+        )}
+      </div>
     )
   }
 }
