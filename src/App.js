@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import "./App.css"
 import { JobDetails, Search, Jobs } from "./components"
 import * as actionTypes from "./store/actions"
-import { clickSearch } from "./store/actions"
+import { loadJobs } from "./store/actions"
 
 class App extends Component {
   render() {
@@ -30,7 +30,7 @@ class App extends Component {
                   }
                   onChangeFulltime={this.props.toggleFulltimeHandler}
                 />
-                <Jobs jobs={this.props.jobs} />
+                <Jobs />
               </div>
             )}
           />
@@ -71,7 +71,7 @@ const mapDispatchToProps = dispatch => {
       }),
     jobSelectedHandler: job => dispatch({ type: actionTypes.SELECT_JOB, job }),
     onClickSearchHandler: (location, term, isFullTime) =>
-      dispatch(clickSearch({ location, term, isFullTime })),
+      dispatch(loadJobs({ location, term, isFullTime })),
     toggleFulltimeHandler: () =>
       dispatch({ type: actionTypes.TOGGLE_FULLTIME }),
   }

@@ -13,36 +13,10 @@ export const saveJobs = (jobs, page, isToggleScroll) => {
   return {
     type: LOAD_JOBS,
     jobs,
-    page: page++,
+    page,
     isToggleScroll,
   }
 }
-
-export const loadJobs = searchData => {
-  const { location, term, isFullTime, page } = searchData
-  const url = `https://jobs.github.com/positions.json?description=${term}&location=${location}&full_time=${isFullTime}&page=${page}`
-  let isToggleScroll = true
-
-  return dispatch => {
-    axios({
-      url: url,
-      adapter: jsonpAdapter,
-    })
-      .then(response => {
-        const jobs = response.data
-        if (jobs.length < 50) {
-          isToggleScroll = false
-          dispatch(saveJobs(jobs, page, isToggleScroll))
-        } else {
-          dispatch(saveJobs(jobs, page, isToggleScroll))
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-}
-
 export const saveSearch = jobs => {
   return {
     type: CLICK_SEARCH,
@@ -50,9 +24,9 @@ export const saveSearch = jobs => {
   }
 }
 
-export const clickSearch = searchData => {
-  const { location, term, isFullTime } = searchData
-  const url = `https://jobs.github.com/positions.json?description=${term}&location=${location}&full_time=${isFullTime}`
+export const loadJobs = searchData => {
+  const { location, term, isFullTime, page = 0 } = searchData
+  const url = `https://jobs.github.com/positions.json?description=${term}&location=${location}&full_time=${isFullTime}&page=${page}`
 
   return dispatch => {
     axios({
@@ -61,7 +35,16 @@ export const clickSearch = searchData => {
     })
       .then(response => {
         const jobs = response.data
-        dispatch(saveSearch(jobs))
+
+        if (page) {
+          if (jobs.length < 50) {
+            dispatch(saveJobs(jobs, page, false))
+          } else {
+            dispatch(saveJobs(jobs, page, true))
+          }
+        } else {
+          dispatch(saveSearch(jobs))
+        }
       })
       .catch(error => {
         console.log(error)
