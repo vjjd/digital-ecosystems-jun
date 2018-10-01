@@ -33,18 +33,22 @@ class App extends Component {
                   onChangeFulltime={this.props.toggleFulltime}
                 />
 
-                {this.props.jobs.map(job => {
-                  return (
-                    <Job
-                      title={job.title}
-                      company={job.company}
-                      location={job.location}
-                      id={job.id}
-                      key={job.id}
-                      onClick={() => this.props.jobSelectedHandler(job)}
-                    />
-                  )
-                })}
+                {this.props.jobs.length ? (
+                  this.props.jobs.map(job => {
+                    return (
+                      <Job
+                        title={job.title}
+                        company={job.company}
+                        location={job.location}
+                        id={job.id}
+                        key={job.id}
+                        onClick={() => this.props.jobSelectedHandler(job)}
+                      />
+                    )
+                  })
+                ) : (
+                  <p>Jobs list is empty</p>
+                )}
               </div>
             )}
           />

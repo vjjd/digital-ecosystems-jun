@@ -1,7 +1,7 @@
 import * as actionTypes from "./actions"
 
 const initialState = {
-  msg: "It's the Digital Ecosystems App",
+  msg: "This is the Digital Ecosystems App",
   jobs: [],
   term: "",
   location: "",

@@ -1,4 +1,15 @@
-Digital Ecosystems Jun App
+# Digital Ecosystems Jun App
+
+Test task for frontend-developer vacancy.
+
+## Installation
+
+```
+git clone https://github.com/vjjd/digital-ecosystems-jun.git
+cd digital-ecosystems-jun
+npm install / yarn install
+npm run start / yarn start
+```
 
 Development stages demonstration:
 
