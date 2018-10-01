@@ -24,8 +24,9 @@ class JobDetails extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(`[JobDetails.js]`, state.selectedJob)
   return {
-    job: state.job,
+    job: state.selectedJob,
   }
 }
 

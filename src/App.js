@@ -30,6 +30,9 @@ class App extends Component {
           />
 
           <p>Jobs Count: {this.props.jobsCount}</p>
+
+          <JobDetails job={this.props.selectedJob} />
+
           {this.props.jobs.map(job => {
             return (
               <Job
@@ -42,7 +45,6 @@ class App extends Component {
               />
             )
           })}
-          <JobDetails job={this.props.selectedJob} />
         </div>
       </Router>
     )
