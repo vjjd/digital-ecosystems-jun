@@ -30,7 +30,7 @@ class App extends Component {
                       this.props.isFullTime
                     )
                   }
-                  onChangeFulltime={this.props.toggleFulltime}
+                  onChangeFulltime={this.props.toggleFulltimeHandler}
                 />
 
                 {this.props.jobs.length ? (
@@ -91,7 +91,8 @@ const mapDispatchToProps = dispatch => {
     jobSelectedHandler: job => dispatch({ type: actionTypes.SELECT_JOB, job }),
     onClickSearchHandler: (location, term, isFullTime) =>
       dispatch(clickSearch({ location, term, isFullTime })),
-    toggleFulltime: () => dispatch({ type: actionTypes.TOGGLE_FULLTIME }),
+    toggleFulltimeHandler: () =>
+      dispatch({ type: actionTypes.TOGGLE_FULLTIME }),
   }
 }
 
