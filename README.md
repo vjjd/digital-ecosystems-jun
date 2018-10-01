@@ -1,6 +1,6 @@
 # Digital Ecosystems Jun App
 
-Test task for frontend-developer vacancy.
+The task is to create a ReactJS web-application that allows you to search for a jobs with params like term, location, full time job capability, then make a request using github API, and finally view the list with a partial info about companies and also view full information about the job at the separate page with company logo and full job description.
 
 ## Installation
 
