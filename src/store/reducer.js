@@ -20,7 +20,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CHANGE_LOCATION:
       return { ...state, location: action.input }
     case actionTypes.SELECT_JOB:
-      console.log(`[Reducer.js - SELECT_JOB]`, action.job)
       return {
         ...state,
         selectedJob: action.job,

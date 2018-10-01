@@ -5,4 +5,16 @@
   box-shadow: 0 2px 3px #ccc;
   padding: 16px;
   text-align: center;
+  box-sizing: border-box;
+}
+
+.Job a {
+  text-decoration: none;
+  color: black;
+}
+
+.Job a:hover,
+.Job a:active,
+.Job a.active {
+  color: #fa923f;
 }

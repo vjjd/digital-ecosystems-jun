@@ -2,3 +2,19 @@
   max-width: 200px;
   max-height: 200px;
 }
+
+.JobDetails ul {
+  margin: 0;
+  padding: 0;
+}
+
+.JobDetails a {
+  text-decoration: none;
+  color: black;
+}
+
+.JobDetails a:hover,
+.JobDetails a:active,
+.JobDetails a.active {
+  color: yellowgreen;
+}

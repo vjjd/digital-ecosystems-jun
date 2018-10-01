@@ -18,9 +18,6 @@ class App extends Component {
             render={() => (
               <div>
                 <h1>{this.props.msg}</h1>
-
-                <p>Jobs Count: {this.props.jobsCount}</p>
-
                 <Search
                   term={this.props.term}
                   location={this.props.location}
@@ -38,16 +35,14 @@ class App extends Component {
 
                 {this.props.jobs.map(job => {
                   return (
-                    <NavLink to={`/details/${job.id}`}>
-                      <Job
-                        title={job.title}
-                        company={job.company}
-                        location={job.location}
-                        id={job.id}
-                        key={job.id}
-                        onClick={() => this.props.jobSelectedHandler(job)}
-                      />
-                    </NavLink>
+                    <Job
+                      title={job.title}
+                      company={job.company}
+                      location={job.location}
+                      id={job.id}
+                      key={job.id}
+                      onClick={() => this.props.jobSelectedHandler(job)}
+                    />
                   )
                 })}
               </div>
