@@ -12,36 +12,54 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <h1>{this.props.msg}</h1>
+          <Route
+            path="/"
+            render={() => (
+              <div>
+                <h1>{this.props.msg}</h1>
 
-          <Search
-            term={this.props.term}
-            location={this.props.location}
-            onChangeTerm={this.props.onChangeTermHandler}
-            onChangeLocation={this.props.onChangeLocationHandler}
-            onClickSearch={() =>
-              this.props.onClickSearchHandler(
-                this.props.location,
-                this.props.term,
-                this.props.isFullTime
-              )
-            }
-            onChangeFulltime={this.props.toggleFulltime}
+                <p>Jobs Count: {this.props.jobsCount}</p>
+
+                <Search
+                  term={this.props.term}
+                  location={this.props.location}
+                  onChangeTerm={this.props.onChangeTermHandler}
+                  onChangeLocation={this.props.onChangeLocationHandler}
+                  onClickSearch={() =>
+                    this.props.onClickSearchHandler(
+                      this.props.location,
+                      this.props.term,
+                      this.props.isFullTime
+                    )
+                  }
+                  onChangeFulltime={this.props.toggleFulltime}
+                />
+
+                {this.props.jobs.map(job => {
+                  return (
+                    <Link to={`/details/${job.id}`}>
+                      <Job
+                        title={job.title}
+                        company={job.company}
+                        location={job.location}
+                        id={job.id}
+                        key={job.id}
+                        onClick={() => this.props.jobSelectedHandler(job)}
+                      />
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
           />
-
-          <p>Jobs Count: {this.props.jobsCount}</p>
-
-          <JobDetails job={this.props.selectedJob} />
 
           {this.props.jobs.map(job => {
             return (
-              <Job
-                title={job.title}
-                company={job.company}
-                location={job.location}
-                id={job.id}
+              <Route
+                exact
+                path={`details/${job.id}`}
                 key={job.id}
-                onClick={() => this.props.jobSelectedHandler(job)}
+                render={() => <JobDetails job={this.props.selectedJob} />}
               />
             )
           })}
