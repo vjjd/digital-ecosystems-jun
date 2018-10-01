@@ -1,6 +1,6 @@
 Digital Ecosystems Jun App
 
-Demos:
+Development stages demonstration:
 
 - https://gfycat.com/InferiorHarmoniousArrowana
 - https://gfycat.com/CrazySimilarHornshark

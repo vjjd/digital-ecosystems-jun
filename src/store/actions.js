@@ -10,7 +10,7 @@ export const TOGGLE_FULLTIME = "TOGGLE_FULLTIME"
 export const saveSearch = jobs => {
   return {
     type: CLICK_SEARCH,
-    jobs,
+    jobs: jobs,
     jobsCount: jobs.length,
   }
 }
@@ -27,7 +27,7 @@ export const clickSearch = searchData => {
       .then(response => {
         const jobs = response.data
         console.log(jobs[0])
-        dispatch(saveSearch(searchData))
+        dispatch(saveSearch(jobs))
       })
       .catch(error => {
         console.log(error)

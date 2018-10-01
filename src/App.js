@@ -31,7 +31,6 @@ class App extends Component {
 
           <p>Jobs Count: {this.props.jobsCount}</p>
           {this.props.jobs.map(job => {
-            console.log("ya tut")
             return (
               <Job
                 title={job.title}

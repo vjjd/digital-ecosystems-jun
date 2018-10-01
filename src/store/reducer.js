@@ -29,6 +29,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         isFullTime: !state.isFullTime,
       }
+    case actionTypes.CLICK_SEARCH:
+      return {
+        ...state,
+        jobs: action.jobs,
+        jobsCount: action.jobsCount,
+      }
   }
   return state
 }
