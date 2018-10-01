@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom"
 import { connect } from "react-redux"
 
 import "./App.css"
@@ -14,6 +14,7 @@ class App extends Component {
         <div className="App">
           <Route
             path="/"
+            exact
             render={() => (
               <div>
                 <h1>{this.props.msg}</h1>
@@ -37,7 +38,7 @@ class App extends Component {
 
                 {this.props.jobs.map(job => {
                   return (
-                    <Link to={`/details/${job.id}`}>
+                    <NavLink to={`/details/${job.id}`}>
                       <Job
                         title={job.title}
                         company={job.company}
@@ -46,23 +47,21 @@ class App extends Component {
                         key={job.id}
                         onClick={() => this.props.jobSelectedHandler(job)}
                       />
-                    </Link>
+                    </NavLink>
                   )
                 })}
               </div>
             )}
           />
 
-          {this.props.jobs.map(job => {
-            return (
-              <Route
-                exact
-                path={`details/${job.id}`}
-                key={job.id}
-                render={() => <JobDetails job={this.props.selectedJob} />}
-              />
-            )
-          })}
+          {this.props.jobs.map(job => (
+            <Route
+              path={`/details/${job.id}`}
+              exact
+              key={job.id}
+              render={() => <JobDetails job={this.props.selectedJob} />}
+            />
+          ))}
         </div>
       </Router>
     )
