@@ -13,11 +13,13 @@ class Search extends Component {
             type="text"
             onChange={this.props.onChangeTerm}
             placeholder="Term"
+            value={this.props.term}
           />
           <input
             type="text"
             onChange={this.props.onChangeLocation}
             placeholder="Location"
+            value={this.props.location}
           />
           <span>
             Full Time
@@ -37,6 +39,8 @@ class Search extends Component {
 function mapStateToProps(state) {
   return {
     fullTime: state.fullTime,
+    term: state.term,
+    location: state.location,
   }
 }
 
