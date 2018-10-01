@@ -3,24 +3,31 @@ import { connect } from "react-redux"
 
 import Job from "../Job/Job"
 import * as actionTypes from "../../store/actions"
+import { loadJobs } from "../../store/actions"
 
 class Jobs extends Component {
-  handleScroll() {
+  handleScroll(props) {
     const windowBottom =
       "innerHeight" in window
         ? window.innerHeight + window.pageYOffset
         : document.documentElement.offsetHeight + window.pageYOffset
 
-    if (windowBottom >= document.body.scrollHeight) {
-      console.log("bottom reached")
+    if (
+      windowBottom >= document.body.scrollHeight &&
+      this.props.isToggleScroll
+    ) {
+      props.toggleScrollHandler()
+      props.loadJobsHandler(
+        props.term,
+        props.location,
+        props.isFullTime,
+        props.page
+      )
     }
   }
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll)
-  }
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll)
+  componentDidMount = () => {
+    window.addEventListener("scroll", () => this.handleScroll(this.props))
   }
 
   render() {
@@ -49,11 +56,19 @@ class Jobs extends Component {
 const mapStateToProps = state => {
   return {
     jobs: state.jobs,
+    term: state.term,
+    location: state.location,
+    isFullTime: state.isFullTime,
+    page: state.page,
+    isToggleScroll: state.isToggleScroll,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
+    toggleScrollHandler: () => dispatch({ type: actionTypes.TOGGLE_SCROLL }),
     jobSelectedHandler: job => dispatch({ type: actionTypes.SELECT_JOB, job }),
+    loadJobsHandler: (term, location, isFullTime, page) =>
+      dispatch(loadJobs({ term, location, isFullTime, page })),
   }
 }
 

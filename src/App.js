@@ -30,7 +30,7 @@ class App extends Component {
                   }
                   onChangeFulltime={this.props.toggleFulltimeHandler}
                 />
-                <Jobs />
+                <Jobs jobs={this.props.jobs} />
               </div>
             )}
           />
@@ -57,7 +57,6 @@ const mapStateToProps = state => {
     term: state.term,
     location: state.location,
     isFullTime: state.isFullTime,
-    jobsCount: state.jobsCount,
   }
 }
 

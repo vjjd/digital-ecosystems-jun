@@ -1,14 +1,17 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { NavLink } from "react-router-dom"
-
 const HtmlToReactParser = require("html-to-react").Parser
 
 import "./JobDetails.css"
+import * as actionTypes from "../../store/actions"
 
 class JobDetails extends Component {
   componentDidMount() {
     window.scrollTo(0, 0)
+    if (this.props.isToggleScroll) {
+      this.props.toggleScrollHandler()
+    }
   }
   render() {
     const htmlToReactParser = new HtmlToReactParser()
@@ -26,10 +29,20 @@ class JobDetails extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     job: state.selectedJob,
+    isToggleScroll: state.isToggleScroll,
   }
 }
 
-export default connect(mapStateToProps)(JobDetails)
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleScrollHandler: () => dispatch({ type: actionTypes.TOGGLE_SCROLL }),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(JobDetails)

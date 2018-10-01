@@ -6,8 +6,9 @@ const initialState = {
   term: "",
   location: "",
   isFullTime: false,
-  jobsCount: 0,
   selectedJob: null,
+  page: 1,
+  isToggleScroll: true,
 }
 
 const reducer = (state = initialState, action) => {
@@ -33,7 +34,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         jobs: action.jobs,
-        jobsCount: action.jobsCount,
+      }
+    case actionTypes.LOAD_JOBS:
+      console.log("[Reducer.js LOAD_JOBS]", action)
+      const page = action.page + 1
+      const jobs = state.jobs.concat(action.jobs)
+      return {
+        ...state,
+        jobs,
+        page,
+        isToggleScroll: action.isToggleScroll,
+      }
+    case actionTypes.TOGGLE_SCROLL:
+      return {
+        ...state,
+        isToggleScroll: !state.isToggleScroll,
       }
   }
   return state
