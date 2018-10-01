@@ -26,7 +26,6 @@ export const clickSearch = searchData => {
     })
       .then(response => {
         const jobs = response.data
-        console.log(jobs[0])
         dispatch(saveSearch(jobs))
       })
       .catch(error => {

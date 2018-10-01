@@ -8,6 +8,23 @@ import * as actionTypes from "./store/actions"
 import { clickSearch } from "./store/actions"
 
 class App extends Component {
+  handleScroll() {
+    const windowBottom =
+      "innerHeight" in window
+        ? window.innerHeight + window.pageYOffset
+        : document.documentElement.offsetHeight + window.pageYOffset
+
+    if (windowBottom >= document.body.scrollHeight) {
+      console.log("bottom reached")
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll)
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll)
+  }
   render() {
     return (
       <Router>
